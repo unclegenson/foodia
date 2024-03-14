@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:food_studio/Data/data_file.dart';
+import 'package:food_studio/screens/order_page.dart';
+import 'package:food_studio/screens/route_page.dart';
 
 import 'home_page.dart';
-import 'route_page.dart';
 
 class FoodDetail extends StatefulWidget {
-  const FoodDetail(image, foodName, foodType, price, number, {super.key});
+  const FoodDetail(iiindex, {super.key});
 
   @override
   State<FoodDetail> createState() => _FoodDetailState();
 }
-
-int numberr = 0;
-
-List colors2 = const [
-  Color(0xff1A5D1A),
-  Color(0xffF1C93B),
-  Color(0xffFBD85D),
-  Color(0xffFAE392),
-];
 
 class _FoodDetailState extends State<FoodDetail> {
   @override
@@ -31,9 +24,9 @@ class _FoodDetailState extends State<FoodDetail> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                '$price \$',
-                style: TextStyle(
-                  color: colors2[0],
+                "${allFoods[iiindex]['price']} \$",
+                style: const TextStyle(
+                  color: Color(0xff1A5D1A),
                   fontWeight: FontWeight.w500,
                   fontSize: 24,
                 ),
@@ -43,12 +36,11 @@ class _FoodDetailState extends State<FoodDetail> {
                 width: 290,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => RoutePage(numberr),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const RoutePage();
+                      },
+                    ));
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green[800],
@@ -82,7 +74,11 @@ class _FoodDetailState extends State<FoodDetail> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return const RoutePage();
+                  },
+                ));
               },
             );
           },
@@ -92,7 +88,7 @@ class _FoodDetailState extends State<FoodDetail> {
           'Food Details',
           style: TextStyle(
             // fontFamily: 'main',
-            fontSize: 26,
+            fontSize: 23,
             fontWeight: FontWeight.w500,
             color: Colors.black,
           ),
@@ -121,7 +117,7 @@ class _FoodDetailState extends State<FoodDetail> {
                                 const BorderRadius.all(Radius.circular(20)),
                             child: InteractiveViewer(
                               child: Image.asset(
-                                image,
+                                allFoods[iiindex]['image'],
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -168,8 +164,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           child: IconButton(
                             onPressed: () {
                               setState(() {
-                                number++;
-                                numberr = number;
+                                allFoods[iiindex]['orderCount']++;
                               });
                             },
                             icon: const Icon(
@@ -183,7 +178,7 @@ class _FoodDetailState extends State<FoodDetail> {
                           width: 14,
                         ),
                         Text(
-                          number.toString(),
+                          allFoods[iiindex]['orderCount'].toString(),
                           style: const TextStyle(
                               fontSize: 22, color: Colors.black),
                         ),
@@ -197,14 +192,11 @@ class _FoodDetailState extends State<FoodDetail> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              setState(
-                                () {
-                                  if (number > 0) {
-                                    number--;
-                                    numberr = number;
-                                  }
-                                },
-                              );
+                              if (allFoods[iiindex]['orderCount'] > 0) {
+                                setState(() {
+                                  allFoods[iiindex]['orderCount']--;
+                                });
+                              }
                             },
                             icon: const Icon(Icons.remove,
                                 size: 22, color: Colors.black),
@@ -222,7 +214,7 @@ class _FoodDetailState extends State<FoodDetail> {
             Padding(
               padding: const EdgeInsets.fromLTRB(12, 4, 12, 80),
               child: Container(
-                height: MediaQuery.of(context).size.height - 570,
+                height: MediaQuery.of(context).size.height * 45 / 100,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
@@ -242,7 +234,7 @@ class _FoodDetailState extends State<FoodDetail> {
                                 padding: const EdgeInsets.only(
                                     top: 8, right: 4, left: 7),
                                 child: Text(
-                                  foodName,
+                                  allFoods[iiindex]['name'],
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
@@ -254,7 +246,7 @@ class _FoodDetailState extends State<FoodDetail> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8),
                                 child: Text(
-                                  foodType,
+                                  allFoods[iiindex]['category'],
                                   style: const TextStyle(
                                     color: Colors.black45,
                                     fontWeight: FontWeight.w400,
@@ -290,10 +282,11 @@ class _FoodDetailState extends State<FoodDetail> {
                     const Padding(
                       padding: EdgeInsets.all(16),
                       child: Text(
-                          '''Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book'''),
+                          '''Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.'''),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(18),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 8),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: const [

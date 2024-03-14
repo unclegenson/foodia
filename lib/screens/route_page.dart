@@ -1,13 +1,9 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
-import 'package:panara_dialogs/panara_dialogs.dart';
-
 import 'home_page.dart';
 import 'order_page.dart';
 
 class RoutePage extends StatefulWidget {
-  const RoutePage(int numberr, {super.key});
+  const RoutePage({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -17,8 +13,7 @@ class RoutePage extends StatefulWidget {
 class _RoutePageState extends State<RoutePage> {
   final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    OrdersPage(orderFoodImages, orderFoodNames, orderFoodTypes, orderFoodPrices,
-        orderFoodNumbers, totalPriceList, totalSum, tax),
+    const OrdersPage(),
   ];
   int _currentSelected = 0;
 
@@ -31,25 +26,25 @@ class _RoutePageState extends State<RoutePage> {
         return BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           onTap: (int index) {
-            if (index == 1) {
-              Future.delayed(const Duration(milliseconds: 100), () {
-                setState(() {
-                  PanaraInfoDialog.showAnimatedGrow(
-                    context,
-                    title: "No address added!",
-                    message:
-                        "Please add your address for the delivary options.",
-                    buttonText: "Okay",
-                    onTapDismiss: () {
-                      Navigator.pop(ctx);
-                    },
-                    panaraDialogType: PanaraDialogType.error,
-                  );
-                });
-              });
-            }
+            // if (index == 1) {
+            //   Future.delayed(const Duration(milliseconds: 100), () {
+            //     setState(() {
+            //       PanaraInfoDialog.showAnimatedGrow(
+            //         context,
+            //         title: "No address added!",
+            //         message:
+            //             "Please add your address for the delivary options.",
+            //         buttonText: "Okay",
+            //         onTapDismiss: () {
+            //           Navigator.pop(ctx);
+            //         },
+            //         panaraDialogType: PanaraDialogType.error,
+            //       );
+            //     });
+            //   });
+            // }
 
-            index == 2
+            index == 1
                 ? Scaffold.of(ctx).openDrawer()
                 : setState(
                     () {
@@ -72,17 +67,6 @@ class _RoutePageState extends State<RoutePage> {
                 Icons.home_outlined,
                 size: 28,
               ),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.my_library_books_rounded,
-                size: 25,
-              ),
-              activeIcon: Icon(
-                Icons.my_library_books_outlined,
-                size: 25,
-              ),
-              label: "Orders",
             ),
             BottomNavigationBarItem(
               icon: Icon(

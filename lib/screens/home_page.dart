@@ -1,18 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_studio/screens/splash_screen.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
-import '../screens/food_details.dart';
+import '../Data/data_file.dart';
+import 'food_details.dart';
 import 'order_page.dart';
-
-List orderFoodImages = [];
-List orderFoodNames = [];
-List orderFoodTypes = [];
-List orderFoodPrices = [];
-List orderFoodNumbers = [];
-List<double> totalPriceList = [];
-
-double totalSum = 0;
-double tax = 0;
 
 InkWell tile(String text, IconData icon) {
   return InkWell(
@@ -127,22 +117,6 @@ Drawer drawer() {
   );
 }
 
-String appbartext = '';
-String image = '';
-String foodName = '';
-String foodType = '';
-double price = 0;
-
-int number = 0;
-
-List colors2 = const [
-  Color(0xff1A5D1A),
-  Color(0xffF1C93B),
-  Color(0xffFBD85D),
-  Color(0xffFAE392),
-];
-List<double> stars = [4.6, 4.9, 4.2, 4.7, 4.3, 3.8, 4.8, 4.9];
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -150,281 +124,85 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-List categories = <String>[
-  'Burger',
-  'Pizza',
-  'Seafood',
-  'Persian Food',
-  'Drink',
-  'Dessert',
-];
-
-List burgerNames = [
-  'Special Burger',
-  'Chicken Burger',
-  'Double Cheeseburger',
-  'Cheeseburger',
-  'Big Burger',
-];
-
-List burgers = [
-  'asset/image/xxxxnewham.jpg',
-  'asset/image/xxxxnewbur2.jpg',
-  'asset/image/xxxxnewbur3.jpg',
-  'asset/image/xxxxnewbur4.jpg',
-  'asset/image/xxxxnewbur1.jpg',
-];
 bool favorite = false;
-List dessertNames = [
-  'Special Salad',
-  'Chicken Salad',
-  'Season Salad',
-  'Chease Salad',
-  'Fruit Salad',
-  'Coleslaw',
-  'Big Salad',
-  'Chocolate Icecream',
-  'Fruit Icecream',
-  'Orange Cake',
-  'Berry Cake',
-  'Chocolate Cake'
-];
-
-List drinkNames = [
-  'Special Juice',
-  'Lemon Juice',
-  'Orange Juice',
-  'Watermelon',
-  'Relax Juice',
-  'Cola'
-];
-
-List drinks = [
-  'asset/image/xxxxnewd1.jpg',
-  'asset/image/xxxxnewd2.jpg',
-  'asset/image/xxxxnewd3.jpg',
-  'asset/image/xxxxnewd4.jpg',
-  'asset/image/xxxxnewd5.jpg',
-  'asset/image/xxxxnewd6.jpg',
-];
-
-List seaNames = ['Shrimp', 'Oyster', 'Fish', 'Sushi'];
-
-List sea = [
-  'asset/image/xxxxnewsea1.jpg',
-  'asset/image/xxxxnewsea2.jpg',
-  'asset/image/xxxxnewsea3.jpg',
-  'asset/image/xxxxnewsea4.jpg',
-];
-List dessert = [
-  'asset/image/xxxxnewfood1.jpg',
-  'asset/image/xxxxnews1.jpg',
-  'asset/image/xxxxnews2.jpg',
-  'asset/image/xxxxnews3.jpg',
-  'asset/image/xxxxnews4.jpg',
-  'asset/image/xxxxnews5.jpg',
-  'asset/image/img1.jpg',
-  'asset/image/xxxxnewi1.jpg',
-  'asset/image/xxxxnewi2.jpg',
-  'asset/image/xxxxnewc1.jpg',
-  'asset/image/xxxxnewc2.jpg',
-  'asset/image/xxxxnewc3.jpg',
-];
-
-List pizzaName = [
-  'Special Pizza',
-  'Chicken Pizza',
-  'Vegan Pizza',
-  'Chease Pizza',
-  'Pepperoni Pizza'
-];
-
-List pizza = [
-  'asset/image/xxxxnewpizza1.jpg',
-  'asset/image/xxxxnewpizza2.jpg',
-  'asset/image/xxxxnewpizza3.jpg',
-  'asset/image/xxxxnewpizza4.jpg',
-  'asset/image/xxxxnewpizza5.jpg',
-];
-Map foodImages = {0: burgers, 1: pizza, 2: sea, 3: iran, 4: drinks, 5: dessert};
-List burgerNum = [0, 0, 0, 0, 0];
-List pizzaNum = [0, 0, 0, 0, 0];
-List seaNum = [0, 0, 0, 0];
-List iranNum = [0, 0, 0, 0, 0, 0];
-List drinkNum = [0, 0, 0, 0, 0, 0];
-List dessetNum = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-List burgerPrice = [33.0, 36.0, 42.0, 29.0, 34.0];
-List pizzaPrice = [45.0, 39.0, 38.0, 42.0, 48.0];
-List seaPrice = [29.0, 27.0, 36.0, 52.0];
-List iranPrice = [42.0, 32.0, 28.0, 34.0, 38.0, 42.0];
-List drinkPrice = [20.0, 16.0, 16.0, 16.0, 18.0, 12.0];
-List dessertPrice = [
-  24.0,
-  26.0,
-  20.0,
-  16.0,
-  18.0,
-  20.0,
-  13.0,
-  14.0,
-  14.0,
-  14.0,
-  14.0,
-  15.0
-];
-
-Map prices = {
-  0: burgerPrice,
-  1: pizzaPrice,
-  2: seaPrice,
-  3: iranPrice,
-  4: drinkPrice,
-  5: dessertPrice
-};
-
-bool t = true;
-
-Map numbers = {
-  0: burgerNum,
-  1: pizzaNum,
-  2: seaNum,
-  3: iranNum,
-  4: drinkNum,
-  5: dessetNum
-};
-
-Map foodsName = {
-  0: burgerNames,
-  1: pizzaName,
-  2: seaNames,
-  3: iranNames,
-  4: drinkNames,
-  5: dessertNames
-};
-bool showWidgetsInOrderPage = false;
-bool c = true;
-List iranNames = [
-  'Special Meal',
-  'Khoresh Aloo',
-  'Taa Chin',
-  'Crisp Chicken',
-  'Special Chicken',
-  'Special Kebab'
-];
 
 int addToCartButton = 0;
 bool doneButton = true;
-
-List iran = [
-  'asset/image/xxxxnewiran2.jpg',
-  'asset/image/xxxxnewiran1.jpg',
-  'asset/image/xxxxnewiran3.jpg',
-  'asset/image/xxxxnewiran4.jpg',
-  'asset/image/xxxxnewiran5.jpg',
-  'asset/image/xxxxnewiran6.jpg',
-];
+Map foodsToShow = {};
 
 class _HomePageState extends State<HomePage> {
   @override
+  initState() {
+    setState(() {
+      int j = 0;
+      foodsToShow.clear();
+      for (var i = 1; i < allFoods.length + 1; i++) {
+        if (allFoods[i]['category'] == categories[0]) {
+          foodsToShow[j] = allFoods[i];
+          j++;
+        }
+      }
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       bottomSheet: doneButton
           ? Container(
               height: 0,
             )
-          : Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              child: SizedBox(
-                height: 44,
-                width: 380,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green[600],
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Done',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      Icon(Icons.check)
-                    ],
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      showWidgetsInOrderPage = true;
-
-                      for (int category = 0;
-                          category < categories.length;
-                          category++) {
-                        for (int item = 0;
-                            item < numbers[category].length;
-                            item++) {
-                          if (numbers[category][item] != 0) {
-                            if (orderFoodImages
-                                .contains(foodImages[category][item])) {
-                              orderFoodNumbers[orderFoodImages
-                                      .indexOf(foodImages[category][item])] =
-                                  numbers[category][item];
-
-                              totalPriceList[orderFoodImages
-                                      .indexOf(foodImages[category][item])] =
-                                  numbers[category][item] *
-                                      prices[category][item];
-                              print('1:$totalPriceList');
-                            } else {
-                              orderFoodImages.add(foodImages[category][item]);
-                              orderFoodNames.add(foodsName[category][item]);
-                              orderFoodTypes.add(categories[category]);
-                              orderFoodPrices.add(prices[category][item]);
-                              orderFoodNumbers.add(numbers[category][item]);
-
-                              totalPriceList.add(numbers[category][item] *
-                                  prices[category][item]);
-                              print('2:$totalPriceList');
-                              setState(() {
-                                totalSum = sumUsingLoop(totalPriceList);
-                                tax = totalSum * 0.09;
-                              });
-                            }
-                          }
-                        }
-                      }
-                    });
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => OrdersPage(
-                          orderFoodImages,
-                          orderFoodNames,
-                          orderFoodTypes,
-                          orderFoodPrices,
-                          orderFoodNumbers,
-                          totalPriceList,
-                          totalSum,
-                          tax,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
+          : buttonSheetMethod(context),
       backgroundColor: Colors.green[50],
       appBar: appbar(),
       body: SingleChildScrollView(
-        child: body(),
+        child: body(size),
       ),
     );
   }
 
-  Column body() {
+  Padding buttonSheetMethod(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      child: FractionallySizedBox(
+        heightFactor: 0.07,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green[600],
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text(
+                'Done',
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(
+                width: 1,
+              ),
+              Icon(Icons.check)
+            ],
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const OrdersPage(),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  Column body(Size size) {
     return Column(
       children: [
         const Padding(
@@ -442,9 +220,41 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               SizedBox(
-                width: 305,
+                width: size.width - 90,
                 height: 50,
                 child: TextFormField(
+                  onChanged: (value) {
+                    if (value.isEmpty) {
+                      setState(() {
+                        int j = 0;
+                        foodsToShow.clear();
+                        for (var i = 1; i < allFoods.length + 1; i++) {
+                          if (allFoods[i]['category'] == categories[0]) {
+                            foodsToShow[j] = allFoods[i];
+                            j++;
+                          }
+                        }
+                      });
+                    } else {
+                      int j = 0;
+                      setState(() {
+                        foodsToShow.clear();
+                        for (var i = 1; i < allFoods.length + 1; i++) {
+                          if (allFoods[i]['name']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              allFoods[i]['category']
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase())) {
+                            foodsToShow[j] = allFoods[i];
+                            j++;
+                          }
+                        }
+                      });
+                    }
+                  },
                   cursorColor: Colors.black87,
                   cursorHeight: 23,
                   style: const TextStyle(
@@ -453,6 +263,7 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500,
                   ),
                   decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                       borderSide: const BorderSide(
@@ -476,10 +287,9 @@ class _HomePageState extends State<HomePage> {
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
-                    prefixIcon: IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {},
-                      color: Colors.black87,
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -506,15 +316,21 @@ class _HomePageState extends State<HomePage> {
         const SizedBox(
           height: 18,
         ),
-        const Padding(
-          padding: EdgeInsets.only(right: 200, top: 6),
-          child: Text(
-            'Explore Categories',
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.w500
-                // fontFamily: 'main',
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: const [
+            Padding(
+              padding: EdgeInsets.only(left: 22),
+              child: Text(
+                'Explore Categories',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
                 ),
-          ),
+              ),
+            ),
+          ],
         ),
         const SizedBox(
           height: 6,
@@ -534,6 +350,15 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       setState(() {
                         selectedCategory = index;
+                        int j = 0;
+                        foodsToShow.clear();
+                        for (var i = 1; i < allFoods.length + 1; i++) {
+                          if (allFoods[i]['category'] ==
+                              categories[selectedCategory]) {
+                            foodsToShow[j] = allFoods[i];
+                            j++;
+                          }
+                        }
                       });
                     },
                     child: Container(
@@ -566,15 +391,13 @@ class _HomePageState extends State<HomePage> {
           height: 4,
         ),
         SizedBox(
-          height: doneButton
-              ? MediaQuery.of(context).size.height - 340
-              : MediaQuery.of(context).size.height - 390,
-          width: MediaQuery.of(context).size.width - 12,
+          height: doneButton ? size.height - 350 : size.height - 400,
+          width: size.width - 12,
           child: MediaQuery.removePadding(
             context: context,
             removeTop: true,
             child: ListView.builder(
-              itemCount: foodImages[selectedCategory].length,
+              itemCount: foodsToShow.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(3.0),
@@ -582,7 +405,7 @@ class _HomePageState extends State<HomePage> {
                     alignment: Alignment.bottomRight,
                     children: [
                       Container(
-                        height: 110,
+                        height: 115,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
@@ -595,24 +418,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             InkWell(
                               onTap: () {
-                                appbartext = foodsName[selectedCategory][index];
-                                image = foodImages[selectedCategory][index];
-                                foodName = foodsName[selectedCategory][index];
-                                foodType = categories[selectedCategory];
-                                price = prices[selectedCategory][index];
-                                number = numbers[selectedCategory][index];
+                                iiindex = foodsToShow[index]['id'];
                                 favorite = false;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return FoodDetail(
-                                        image,
-                                        foodName,
-                                        foodType,
-                                        price,
-                                        number,
-                                      );
+                                      return FoodDetail(iiindex);
                                     },
                                   ),
                                 );
@@ -622,7 +434,7 @@ class _HomePageState extends State<HomePage> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
                                   child: Image.asset(
-                                    foodImages[selectedCategory][index],
+                                    foodsToShow[index]['image'],
                                     fit: BoxFit.cover,
                                     height: 102,
                                     width: 115,
@@ -676,7 +488,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       Flexible(
                                         child: Text(
-                                          foodsName[selectedCategory][index],
+                                          foodsToShow[index]['name'],
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
@@ -693,14 +505,14 @@ class _HomePageState extends State<HomePage> {
                                   height: 12,
                                 ),
                                 Text(
-                                  '${prices[selectedCategory][index]} \$',
+                                  '${foodsToShow[index]['price']} \$',
                                   style: const TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
                                 Text(
-                                  categories[selectedCategory],
+                                  foodsToShow[index]['category'],
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
@@ -720,7 +532,7 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(4.0),
                               child: SizedBox(
                                 height: 38,
-                                width: 120,
+                                width: 130,
                                 child: ElevatedButton(
                                   onPressed: () {
                                     setState(() {
@@ -748,7 +560,7 @@ class _HomePageState extends State<HomePage> {
                           : Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Container(
-                                width: 120,
+                                width: 130,
                                 height: 38,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
@@ -761,25 +573,22 @@ class _HomePageState extends State<HomePage> {
                                       onPressed: () {
                                         setState(
                                           () {
-                                            if (numbers[selectedCategory]
-                                                    [index] >
+                                            if (foodsToShow[index]
+                                                    ['orderCount'] >
                                                 0) {
-                                              numbers[selectedCategory]
-                                                  [index]--;
+                                              foodsToShow[index]
+                                                  ['orderCount']--;
                                             }
-                                            if (numbers[selectedCategory].every(
-                                                (element) => element == 0)) {
-                                              addToCartButton = 0;
+                                            int tedad0 = 0;
+                                            for (var food in allFoods.values) {
+                                              if (food['orderCount'] == 0) {
+                                                tedad0++;
+                                              }
+                                            }
+                                            if (tedad0 == allFoods.length) {
                                               setState(() {
+                                                addToCartButton = 0;
                                                 doneButton = true;
-                                                showWidgetsInOrderPage = false;
-                                                orderFoodImages.clear();
-                                                orderFoodNames.clear();
-                                                orderFoodTypes.clear();
-                                                orderFoodPrices.clear();
-                                                orderFoodNumbers.clear();
-                                                totalPriceList.clear();
-                                                totalSum = 0;
                                               });
                                             }
                                           },
@@ -789,7 +598,7 @@ class _HomePageState extends State<HomePage> {
                                           size: 22, color: Colors.white),
                                     ),
                                     Text(
-                                      numbers[selectedCategory][index]
+                                      foodsToShow[index]['orderCount']
                                           .toString(),
                                       style: const TextStyle(
                                         fontSize: 22,
@@ -799,7 +608,7 @@ class _HomePageState extends State<HomePage> {
                                     IconButton(
                                       onPressed: () {
                                         setState(() {
-                                          numbers[selectedCategory][index]++;
+                                          foodsToShow[index]['orderCount']++;
                                           doneButton = false;
                                         });
                                       },
@@ -861,16 +670,7 @@ class _HomePageState extends State<HomePage> {
             });
             Navigator.push(context, MaterialPageRoute(
               builder: (context) {
-                return OrdersPage(
-                  orderFoodImages,
-                  orderFoodNames,
-                  orderFoodTypes,
-                  orderFoodPrices,
-                  orderFoodNumbers,
-                  totalPriceList,
-                  totalSum,
-                  tax,
-                );
+                return const OrdersPage();
               },
             ));
           },

@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_studio/screens/food_details.dart';
 
 import 'route_page.dart';
-
-List colors = const [
-  Color.fromARGB(255, 139, 195, 74),
-  Color.fromARGB(255, 56, 142, 60),
-  Color.fromARGB(255, 60, 81, 134),
-  Color.fromARGB(255, 155, 114, 170),
-];
-
-List colors2 = const [
-  Color(0xff1A5D1A),
-  Color(0xffF1C93B),
-  Color(0xffFBD85D),
-  Color(0xffFAE392),
-];
 
 class Head extends StatelessWidget {
   const Head({super.key});
@@ -35,10 +20,10 @@ class Head extends StatelessWidget {
                 width: MediaQuery.of(context).size.width - 16,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => RoutePage(numberr),
+                        builder: (context) => const RoutePage(),
                       ),
                     );
                   },
