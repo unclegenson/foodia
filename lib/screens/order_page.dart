@@ -78,7 +78,7 @@ class _OrdersPageState extends State<OrdersPage> {
         Padding(
           padding: const EdgeInsets.all(8),
           child: SizedBox(
-            height: 510,
+            height: MediaQuery.of(context).size.height * 59 / 100,
             child: ListView.separated(
               separatorBuilder: (context, index) {
                 return const Divider(
@@ -302,7 +302,7 @@ class _OrdersPageState extends State<OrdersPage> {
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(14)),
-        height: 124,
+        height: MediaQuery.of(context).size.height * 2 / 10,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

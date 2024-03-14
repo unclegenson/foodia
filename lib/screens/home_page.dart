@@ -137,7 +137,7 @@ class _HomePageState extends State<HomePage> {
       int j = 0;
       foodsToShow.clear();
       for (var i = 1; i < allFoods.length + 1; i++) {
-        if (allFoods[i]['category'] == categories[0]) {
+        if (allFoods[i]['category'] == categories[selectedCategory]) {
           foodsToShow[j] = allFoods[i];
           j++;
         }
@@ -229,7 +229,8 @@ class _HomePageState extends State<HomePage> {
                         int j = 0;
                         foodsToShow.clear();
                         for (var i = 1; i < allFoods.length + 1; i++) {
-                          if (allFoods[i]['category'] == categories[0]) {
+                          if (allFoods[i]['category'] ==
+                              categories[selectedCategory]) {
                             foodsToShow[j] = allFoods[i];
                             j++;
                           }
